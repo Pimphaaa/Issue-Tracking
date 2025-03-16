@@ -3,10 +3,9 @@
 This is an issue tracking system with the following components:
 
 ## Update Code
-```bash
-git pull origin main
-
----
+   ```bash
+   git pull origin main
+   
 
 
 ## Tech Stack:
