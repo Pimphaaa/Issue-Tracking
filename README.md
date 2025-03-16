@@ -1,4 +1,4 @@
-# Issue Tracking System
+# Issue Tracking System  💒
 
 This is an issue tracking system with the following components:
 
