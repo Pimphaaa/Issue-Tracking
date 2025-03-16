@@ -28,6 +28,17 @@ This is an issue tracking system with the following components:
 2. Navigate to the frontend directory:
    cd frontend
 3. Install dependencies and run the dev server:
+   ```bash
   npm run dev
-4. The frontend will be available at:
+5. The frontend will be available at:
    http://localhost:3000/
+
+
+### Mobile (User App)
+1. Create the mobile project:
+   ```bash
+   npx create-expo-app mobile
+2. Navigate to the mobile directory.
+3. Start the mobile app:
+   ```bash
+   npm start
