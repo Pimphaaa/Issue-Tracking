@@ -29,7 +29,7 @@ This is an issue tracking system with the following components:
    cd frontend
 3. Install dependencies and run the dev server:
    ```bash
-  npm run dev
+   npm run dev
 5. The frontend will be available at:
    http://localhost:3000/
 
