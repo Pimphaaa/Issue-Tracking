@@ -17,4 +17,17 @@ This is an issue tracking system with the following components:
    ```bash
    go run main.go
 4. The backend will be available at:
-http://localhost:8080/
+   http://localhost:8080/
+
+
+### Frontend (Admin Dashboard)
+
+1. Create the frontend project:
+   ```bash
+   npx create-next-app@latest frontend
+2. Navigate to the frontend directory:
+   cd frontend
+3. Install dependencies and run the dev server:
+  npm run dev
+4. The frontend will be available at:
+   http://localhost:3000/
