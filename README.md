@@ -6,7 +6,6 @@ This is an issue tracking system with the following components:
    - อัพเดททุกครั้งก่อนเริ่มทำ
      ```bash
      git pull origin main
-   
 
 
 ## Tech Stack:
