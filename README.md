@@ -3,7 +3,9 @@
 This is an issue tracking system with the following components:
 
 ## Update Code
-   git pull origin main
+   - อัพเดททุกครั้งก่อนเริ่มทำ
+     ```bash
+     git pull origin main
    
 
 
@@ -12,6 +14,7 @@ This is an issue tracking system with the following components:
 - **Backend**: Golang (Gin Framework)
 - **Mobile**: React Native (User App)
 - **Database**: MySQL
+
 
 ## Setup Instructions:
 
