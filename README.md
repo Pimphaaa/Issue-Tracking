@@ -7,7 +7,6 @@ This is an issue tracking system with the following components:
      ```bash
      git pull origin main
 
-
 ## Tech Stack:
 - **Frontend**: Next.js (Admin Dashboard)
 - **Backend**: Golang (Gin Framework)
