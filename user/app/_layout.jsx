@@ -1,29 +1,30 @@
-import { Stack } from "expo-router";
-import { useFonts } from "expo-font";
+import { View, Text } from 'react-native'
+import React from 'react'
+import { Tabs } from 'expo-router'
 
-export default function RootLayout() {
-  useFonts({
-    'IBMPlexSansThaiLooped-Bold':require('./../assets/fonts/IBMPlexSansThaiLooped-Bold.ttf')
-,   'IBMPlexSansThaiLooped-ExtraLight':require('./../assets/fonts/IBMPlexSansThaiLooped-ExtraLight.ttf'),
-    'IBMPlexSansThaiLooped-Light':require('./../assets/fonts/IBMPlexSansThaiLooped-Light.ttf'),
-    'IBMPlexSansThaiLooped-Medium':require('./../assets/fonts/IBMPlexSansThaiLooped-Medium.ttf'),
-  })
-
-
-
-
+const _layout = () => {
   return (
-    <Stack>
-      <Stack.Screen name="index"/>
-      <Stack.Screen name="login"
-      options={{
-        headerShown:false
-      }}
+    <Tabs>
+        <Tabs.Screen
+            name="Home"
+            options={{
+                title: "Home"
+            }}
+        />
+        <Tabs.Screen
+            name="Activity"
+            options={{
+                title: "Activity"
+            }}
+        />
+        <Tabs.Screen
+            name="Profile"
+            options={{
+                title: "Profile"
+            }}
+        />
+    </Tabs> 
+  )
+}
 
-      />
-
-      
-
-    </Stack>
-  );
-  }
+export default _layout
