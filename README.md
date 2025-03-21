@@ -40,10 +40,9 @@ This is an issue tracking system with the following components:
 
 
 ### Mobile (User App)
-1. Create the mobile project:
+1. Navigate to the mobile directory.
    ```bash
-   npx create-expo-app mobile
-2. Navigate to the mobile directory.
-3. Start the mobile app:
+   cd user
+2. Start the user app:
    ```bash
    npm start
