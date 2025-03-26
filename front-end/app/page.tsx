@@ -24,7 +24,7 @@ export default function Home() {
       </header>
 
 
-      <main className="flex min-h-[calc(100vh-80px)] flex-col items-center justify-start pt-15 p-4">
+      <main className="flex min-h-[calc(100vh-80px)] flex-col items-center justify-start pt-35 p-4">
         <div>
           <RoleSelection />
         </div>
