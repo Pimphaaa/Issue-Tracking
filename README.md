@@ -38,7 +38,7 @@ This is an issue tracking system with the following components:
 
 1. Navigate to the frontend directory:
    ```bash
-   cd frontend
+   cd front-end
 2. Install dependencies and run the dev server:
    ```bash
    npm run dev
