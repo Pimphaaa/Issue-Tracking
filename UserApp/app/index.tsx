@@ -15,11 +15,11 @@ export default function Index() {
         backgroundColor: Colors.WHITE
       }}
     >
-     <Image source={require('./../assets/images/landing.png')}
+     <Image source={require('./../assets/images/background.png')}
      style={{
       width: '100%',
-      height: 300,
-      marginTop: 60,
+      height: 100,
+      marginTop: 300,
      }}
      />
 
@@ -30,6 +30,8 @@ export default function Index() {
           borderTopLeftRadius: 40,
           borderTopRightRadius: 40,
         }}>
+
+        
         <Text style={{
           fontSize: 31,
           
@@ -59,6 +61,7 @@ export default function Index() {
         <View style={styles.button}>
           <Text style={styles.buttonText}>มีบัญชียังงงงง</Text>
         </View>
+        
      </View>
     </View>
   );
