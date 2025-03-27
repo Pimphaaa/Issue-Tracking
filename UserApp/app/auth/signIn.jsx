@@ -3,7 +3,11 @@ import React from 'react'
 
 export default function SingIn() {
   return (
-    <View>
+    <View style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }}>
       <Image source={require('./../../assets/images/doitung.jpg')} 
       style ={{
         width: 180,
