@@ -1,9 +1,13 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Colors from './../contant/Corlors'
+import { useRouter } from "expo-router";
 
 
 
 export default function Index() {
+  
+  const router = useRouter();
+
   return (
     <View
       style={{
@@ -28,9 +32,10 @@ export default function Index() {
         }}>
         <Text style={{
           fontSize: 31,
-          fontWeight: 'bold',
+          
           textAlign: 'center',
-          color: Colors.WHITE
+          color: Colors.WHITE,
+          fontFamily: 'outfit-semibold'
         }}>
           Welcome to my app
         </Text>
@@ -41,12 +46,16 @@ export default function Index() {
           textAlign: 'center',
           color: Colors.WHITE
         }}>
-        เพียงแค่มีบัญชี Spotify ฟรีที่มีโฆษณา คุณก็สามารถเพิ่ม แก้ไข และซิงค์เนื้อเพลงผ่าน Musixmatch ได้แล้ว หากคุณลิงก์บัญชี Spotify Premium เอาไว้ Musixmatch ก็จะจับคู่แคตตาล็อก Spotify ของคุณเข้ากับบัญชี Musixmatch Pro ให้โดยอัตโนมัติ
+          จระเข้ (อีสาน,ลาว: แข้,แข่) เป็นวงศ์ของสัตว์เลื้อยคลานขนาดใหญ่ ใช้ชื่อทางวิทยาศาสตร์ว่า Crocodylidae อยู่ในอันดับจระเข้ (Crocodilia)
+          มีลักษณะโดยรวมคือ ส่วนปลายของหัวแผ่กว้างหรือเรียวยาวบางตัวปากเป็นรูปตัว v และ u ขากรรไกรยาวและกว้าง โคนหางเป็นกล้ามเนื้อมัดใหญ่และแข็งแรงเรียกว่า 
+          "บ้องตัน" ใช้ในการฟาดเพื่อป้องกันตัว หางแบนยาวใช้โบกว่ายน้ำ
         </Text>
 
-        <View style={styles.button}>
+        <TouchableOpacity style={styles.button}
+        onPress={() => router.push('./auth/signIn')}
+        >
           <Text style={[styles.buttonText,{ color: Colors.PRIMARY}]}>Get Started</Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.button}>
           <Text style={styles.buttonText}>มีบัญชียังงงงง</Text>
         </View>
