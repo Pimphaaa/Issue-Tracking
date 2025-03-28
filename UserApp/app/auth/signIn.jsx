@@ -6,20 +6,17 @@ export default function SingIn() {
   return (
 
     
+    <View>
+
+    </View>,
+
+
     <View style={{
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
         backgroundColor: '#FFFFFF'
     }}>
-        
-        
-        <Text>Login</Text>
-
-
-
-
-
      <Image source={require('./../../assets/images/background.png')}
      style={{
       width: '100%',
