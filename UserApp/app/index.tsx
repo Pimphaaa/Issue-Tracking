@@ -54,7 +54,7 @@ export default function Index() {
         </Text>
 
         <TouchableOpacity style={styles.button}
-        onPress={() => router.push('./auth/signIn')}
+        onPress={() => router.push('./auth/Login')}  // เชื่อมหน้าlogin
         >
           <Text style={[styles.buttonText,{ color: Colors.PRIMARY}]}>Get Started</Text>
         </TouchableOpacity>
