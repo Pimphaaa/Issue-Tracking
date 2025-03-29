@@ -78,6 +78,7 @@ export default function Login() {
 
             {/* ปุ่ม Login */}
             <View style={{ marginTop: 20, width: '80%' }}>
+              onPress={() => router.push('./Home.jsx')} 
               <Button title="Login" onPress={() => console.log('Login with:', username, password)} />
             </View>
 
