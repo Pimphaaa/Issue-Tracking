@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
-import { Users, Home, ClipboardList, PlusCircle, Settings } from "lucide-react"
+import { Users, Home, ClipboardList, PlusCircle, Settings, Menu } from "lucide-react"
+import { Button } from "./ui/button"
 
 interface SidebarProps {
   role: "admin" | "staff"
@@ -50,6 +51,18 @@ export default function Sidebar({ role }: SidebarProps) {
 
   return (
     <>
+      {/* Hamburger Icon (for mobile) */}
+      <div className="absolute top-4 left-4 md:hidden z-30">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="text-black"
+        >
+          <Menu className="h-6 w-6" />
+        </Button>
+      </div>
+
       {/* Sidebar */}
       <aside
         className={`fixed inset-y-0 left-0 z-20 mt-16 w-64 transform border-r bg-background transition-transform duration-200 ease-in-out md:translate-x-0 ${
