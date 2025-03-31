@@ -16,9 +16,9 @@ export default function Sidebar({ role, sidebarOpen }: SidebarProps) {
 
   const navigation = [
     { name: "Dashboard", href: `/dashboard/${role}`, icon: Home, current: isActive(`/dashboard/${role}`) },
-    { name: role === "admin" ? "Issue Assignment" : "Issues", href: `/dashboard/${role}/issues`, icon: ClipboardList, current: isActive(`/dashboard/${role}/issues`) },
+    { name: role === "admin" ? "Assign" : "Issues", href: `/dashboard/${role}/issues`, icon: ClipboardList, current: isActive(`/dashboard/${role}/issues`) },
     { name: role === "admin" ? "Staff" : "Team", href: `/dashboard/${role}/${role === "admin" ? "staff" : "team"}`, icon: Users, current: isActive(`/dashboard/${role}/${role === "admin" ? "staff" : "team"}`) },
-    { name: "Request Issue", href: "/request-issue", icon: PlusCircle, current: isActive("/request-issue") },
+    { name: "Request", href: "/request-issue", icon: PlusCircle, current: isActive("/request-issue") },
     { name: "Settings", href: `/dashboard/${role}/settings`, icon: Settings, current: isActive(`/dashboard/${role}/settings`) },
   ]
 
@@ -57,10 +57,12 @@ function SidebarItem({
         active ? "bg-gray-700" : "hover:bg-gray-800"
       }`}
     >
-      <div className="flex h-12 w-12 items-center justify-center">
+      <div
+        className={`flex h-12 w-12 items-center justify-start -ml-1 transition-all duration-200`} // Adjust padding to move icon left by 2px
+      >
         <Icon className="h-6 w-6" />
       </div>
-      {sidebarOpen && <span>{label}</span>}
+      {sidebarOpen && <span className="text-left">{label}</span>}
     </Link>
   )
 }
