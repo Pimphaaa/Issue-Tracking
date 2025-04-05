@@ -43,6 +43,7 @@ export default function Login() {
             <View style={{ marginTop: 20, width: '80%' }}>
               <Button title="Login" onPress={() => navigation.navigate('Home')} />
             </View>
+            
 
           </ScrollView>
 
