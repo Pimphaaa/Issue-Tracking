@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-
-const Activity = () => {
+const Activity= () => {
   return (
     <View>
+      <Text>ttt</Text>
       <Text>Activity</Text>
     </View>
   )

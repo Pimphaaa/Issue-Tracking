@@ -5,6 +5,7 @@ import ColorList from '../components/ColorList'
 const index = () => {
   return (
     <View>
+      <Text>rr</Text>
       <ColorList color="#0891b2" />
     </View>
   )
