@@ -1,18 +1,25 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React from 'react';
+import { FontAwesome } from '@expo/vector-icons';
 
 const TabBar = ({ state, descriptors, navigation }) => {
-  return (
-    <View style={{ flexDirection: 'row' }}>
-      {state.routes.map((route, index) => {
-        const { options } = descriptors[route.key];
-        const label =
-          options.tabBarLabel !== undefined
-            ? options.tabBarLabel
-            : options.title !== undefined
-              ? options.title
-              : route.name;
+  const primaryColor = '#0891b2';
+  const greyColor = '#737373';
 
+  // เพิ่มไอคอนสำหรับแต่ละ route.name
+  const icons = {
+    index: (props) => <FontAwesome name="home" size={26} {...props} />,
+    Activity: (props) => <FontAwesome name="activity" size={26} {...props} />,
+    Profile: (props) => <FontAwesome name="user" size={26} {...props} />,
+  };
+
+  return (
+    <View style={style.tabbar}>
+      {state.routes.map((route, index) => {
+        console.log('ROUTE NAME:', route.name); // เช็กชื่อจริง
+
+        const { options } = descriptors[route.key];
+        const label = options.tabBarLabel ?? options.title ?? route.name;
         const isFocused = state.index === index;
 
         const onPress = () => {
@@ -35,23 +42,41 @@ const TabBar = ({ state, descriptors, navigation }) => {
         };
 
         return (
-          <PlatformPressable
-            href={buildHref(route.name, route.params)}
-            accessibilityState={isFocused ? { selected: true } : {}}
-            accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.tabBarButtonTestID}
+          <TouchableOpacity
+            key={route.key}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={{ flex: 1 }}
+            style={{ flex: 1, alignItems: 'center' }}
           >
-            <Text style={{ color: isFocused ? colors.primary : colors.text }}>
+            {icons[route.name] ? (
+              icons[route.name]({
+                color: isFocused ? primaryColor : greyColor,
+              })
+            ) : (
+              <FontAwesome name="question" size={26} color="red" />
+            )}
+            <Text style={{ color: isFocused ? primaryColor : greyColor }}>
               {label}
             </Text>
-          </PlatformPressable>
+          </TouchableOpacity>
         );
       })}
     </View>
-  )
-}
+  );
+};
 
-export default TabBar
+const style = StyleSheet.create({
+  tabbar: {
+    position: 'absolute',
+    bottom: 25,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    width: '100%',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+});
+
+export default TabBar;
