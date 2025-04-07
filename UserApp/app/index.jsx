@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import Colors from './../contant/Corlors'
+import Colors from '../contant/Corlors'
 import { useRouter } from "expo-router";
 
 
@@ -15,11 +15,12 @@ export default function Index() {
         backgroundColor: Colors.WHITE
       }}
     >
-     <Image source={require('./../assets/images/background.png')}
+     <Image source={require('./../assets/images/landing.png')}
      style={{
       width: '100%',
       height: 100,
-      marginTop: 300,
+      marginTop: 400,
+      
      }}
      />
 
@@ -62,7 +63,7 @@ export default function Index() {
         <TouchableOpacity style={styles.button}
         onPress={() => router.push('./auth/SingUp')}
         >
-          <Text style={[styles.buttonText,{ color: Colors.PRIMARY}]}>สร้างบัญชี</Text>
+          <Text style={[styles.buttonText,{ color: Colors.PRIMARY}]}>Create an account</Text>
         </TouchableOpacity>
         
      </View>

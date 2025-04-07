@@ -2,6 +2,7 @@ import { View, Text, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, P
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native'; // ใช้ Navigation
 
+
 export default function Login() {
   const navigation = useNavigation(); // ใช้ Hook สำหรับเปลี่ยนหน้า
   const [username, setUsername] = useState('');
@@ -14,7 +15,7 @@ export default function Login() {
         <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
           <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center' }} keyboardShouldPersistTaps="handled">
             <Image source={require('./../../assets/images/doitung-logo.png')}
-              style={{ alignItems: 'center', marginTop: 80, width: '100%', height: 100, resizeMode: 'contain' }}
+              style={{ alignItems: 'center', marginTop: 150, width: '100%', height: 100, resizeMode: 'contain' }}
             />
             <Text style={{ fontSize: 20 }}>มูลนิธิแม่ฟ้าหลวง ในพระราชูปถัมป์</Text>
             <Text>Welcome back to the app</Text>
@@ -39,14 +40,19 @@ export default function Login() {
               </TouchableOpacity>
             </View>
 
-            {/* ✅ ปุ่ม Login ที่จะพาไปหน้า Home */}
             <TouchableOpacity
               style={styles.button}
               onPress={() => navigation.navigate('Home')} // ใช้ navigation.navigate() เพื่อพาไปหน้า Home
             >
               <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
+            </TouchableOpacity >
 
+            <TouchableOpacity 
+              style={styles.registerButton} 
+              onPress={() => navigation.navigate('SignUp')} // ใช้ชื่อหน้า 'SignUp'
+            >
+              <Text style={styles.registerText}>Create an account</Text>
+            </TouchableOpacity>
           </ScrollView>
 
           <Image source={require('./../../assets/images/background.png')}
@@ -60,14 +66,26 @@ export default function Login() {
 
 const styles = StyleSheet.create({
   button: {
-    padding: 15,
-    backgroundColor: '#4CAF50', // สีของปุ่ม
-    marginTop: 20,
-    borderRadius: 10
+    width: '80%',
+    paddingVertical: 18,
+    backgroundColor: '#4CAF50',
+    marginTop: 30,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   buttonText: {
-    textAlign: "center",
-    fontSize: 15,
-    color: '#FFFFFF' // สีของตัวอักษรในปุ่ม
-  }
+    fontSize: 18,
+    color: '#FFFFFF',
+    fontWeight: '600'
+  },
+  registerButton: {
+    width: '80%',
+    paddingVertical: 16,
+    backgroundColor: '#EEEEEE',
+    marginTop: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
 });
