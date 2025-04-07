@@ -54,32 +54,59 @@ This is an issue tracking system with the following components:
    ```bash
    npm start
 
-📚 ตัวอย่างหมวดหมู่ของ style ที่ใช้บ่อย ๆ:
-🧱 Layout
-Property	ใช้ทำอะไร
-flex	การขยายพื้นที่อัตโนมัติ
-flexDirection	แนวจัดวาง (row, column)
-justifyContent	แนวตั้ง (center, flex-start, flex-end, space-between)
-alignItems	แนวนอน (center, flex-start, flex-end)
-position	ตำแหน่ง (relative, absolute)
-top, left, right, bottom	จัดตำแหน่งเมื่อใช้ position: 'absolute'
-🎨 Appearance
-Property	ใช้ทำอะไร
-backgroundColor	สีพื้นหลัง
-borderRadius	มุมโค้ง
-borderWidth, borderColor	เส้นขอบ
-opacity	ความโปร่งใส (0 - 1)
-elevation	เงา (เฉพาะ Android)
-shadowColor, shadowOffset, shadowOpacity, shadowRadius	เงา (เฉพาะ iOS)
-🔤 Text
-Property	ใช้ทำอะไร
-fontSize	ขนาดตัวอักษร
-fontWeight	ความหนา (normal, bold, 100-900)
-color	สีข้อความ
-textAlign	ชิดซ้าย ขวา กลาง (left, center, right)
-lineHeight	ระยะห่างระหว่างบรรทัด
-📏 Size & Space
-Property	ใช้ทำอะไร
-width, height	ความกว้าง ความสูง
-padding, paddingHorizontal, paddingVertical, paddingTop, paddingBottom, etc.	ระยะห่างด้านใน
-margin, marginHorizontal, marginVertical, etc.
+
+---
+
+## 🎨 Style Guide ที่ใช้ในโปรเจกต์
+
+### 🧱 Layout
+
+| Property        | ใช้ทำอะไร                                      |
+|-----------------|------------------------------------------------|
+| `flex`          | การขยายพื้นที่อัตโนมัติ                      |
+| `flexDirection` | แนวจัดวาง (`row`, `column`)                   |
+| `justifyContent`| จัดแนววัตถุในแนวตั้ง (`center`, `space-between`) |
+| `alignItems`    | จัดแนววัตถุในแนวนอน (`center`, `flex-end`)   |
+| `position`      | การจัดตำแหน่ง (`relative`, `absolute`)       |
+| `top`, `left`, `right`, `bottom` | ใช้เมื่อใช้ `absolute` เพื่อจัดตำแหน่ง |
+
+---
+
+### 🎨 Appearance
+
+| Property         | ใช้ทำอะไร                              |
+|------------------|----------------------------------------|
+| `backgroundColor`| สีพื้นหลัง                            |
+| `borderRadius`   | มุมโค้ง                                |
+| `borderWidth` / `borderColor` | เส้นขอบ                  |
+| `opacity`        | ความโปร่งใส (ค่า 0 - 1)               |
+| `elevation`      | เงา (เฉพาะ Android)                   |
+| `shadowColor`, `shadowOffset`, `shadowOpacity`, `shadowRadius` | เงา (เฉพาะ iOS) |
+
+---
+
+### 🔤 Text
+
+| Property    | ใช้ทำอะไร                                      |
+|-------------|------------------------------------------------|
+| `fontSize`  | ขนาดตัวอักษร                                 |
+| `fontWeight`| ความหนาของตัวอักษร (`normal`, `bold`, `100-900`) |
+| `color`     | สีข้อความ                                     |
+| `textAlign` | การจัดข้อความ (`left`, `center`, `right`)     |
+| `lineHeight`| ระยะห่างระหว่างบรรทัด                        |
+
+---
+
+### 📏 Size & Space
+
+| Property          | ใช้ทำอะไร                            |
+|-------------------|--------------------------------------|
+| `width`, `height` | กำหนดขนาดความกว้างและความสูง      |
+| `padding`, `paddingTop`, `paddingHorizontal` ฯลฯ | ระยะห่างด้านใน |
+| `margin`, `marginBottom`, `marginVertical` ฯลฯ | ระยะห่างด้านนอก |
+
+---
+
+## 📸 ตัวอย่างหน้าจอ (Screenshot)
+> _📌 แนะนำให้ใส่รูป screenshot จากแอป_
+
