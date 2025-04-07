@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text ,Image } from 'react-native'
 import React from 'react'
 
 export default function SingUp() {
@@ -9,13 +9,7 @@ export default function SingUp() {
             alignItems: 'center',
             backgroundColor: '#FFFFFF'
         }}>
-            
-            
             <Text>Login</Text>
-    
-    
-    
-    
     
          <Image source={require('./../../assets/images/background.png')}
          style={{

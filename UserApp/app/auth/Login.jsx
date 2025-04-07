@@ -1,9 +1,9 @@
-import { View, Text, Image, TextInput, Button, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native'; // ✅ ใช้ Navigation
+import { useNavigation } from '@react-navigation/native'; // ใช้ Navigation
 
 export default function Login() {
-  const navigation = useNavigation(); // ✅ ใช้ Hook สำหรับเปลี่ยนหน้า
+  const navigation = useNavigation(); // ใช้ Hook สำหรับเปลี่ยนหน้า
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [secureText, setSecureText] = useState(true);
@@ -14,7 +14,7 @@ export default function Login() {
         <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
           <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center' }} keyboardShouldPersistTaps="handled">
             <Image source={require('./../../assets/images/doitung-logo.png')}
-              style={{ alignItems: 'center', marginTop: 20, width: '100%', height: 100, resizeMode: 'contain' }}
+              style={{ alignItems: 'center', marginTop: 80, width: '100%', height: 100, resizeMode: 'contain' }}
             />
             <Text style={{ fontSize: 20 }}>มูลนิธิแม่ฟ้าหลวง ในพระราชูปถัมป์</Text>
             <Text>Welcome back to the app</Text>
@@ -40,10 +40,12 @@ export default function Login() {
             </View>
 
             {/* ✅ ปุ่ม Login ที่จะพาไปหน้า Home */}
-            <View style={{ marginTop: 20, width: '80%' }}>
-              <Button title="Login" onPress={() => navigation.navigate('Home')} />
-            </View>
-            
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate('Home')} // ใช้ navigation.navigate() เพื่อพาไปหน้า Home
+            >
+              <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
 
           </ScrollView>
 
@@ -55,3 +57,17 @@ export default function Login() {
     </KeyboardAvoidingView>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    padding: 15,
+    backgroundColor: '#4CAF50', // สีของปุ่ม
+    marginTop: 20,
+    borderRadius: 10
+  },
+  buttonText: {
+    textAlign: "center",
+    fontSize: 15,
+    color: '#FFFFFF' // สีของตัวอักษรในปุ่ม
+  }
+});

@@ -58,9 +58,12 @@ export default function Index() {
         >
           <Text style={[styles.buttonText,{ color: Colors.PRIMARY}]}>Get Started</Text>
         </TouchableOpacity>
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>มีบัญชียังงงงง</Text>
-        </View>
+        
+        <TouchableOpacity style={styles.button}
+        onPress={() => router.push('./auth/SingUp')}
+        >
+          <Text style={[styles.buttonText,{ color: Colors.PRIMARY}]}>สร้างบัญชี</Text>
+        </TouchableOpacity>
         
      </View>
     </View>
