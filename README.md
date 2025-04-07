@@ -53,3 +53,33 @@ This is an issue tracking system with the following components:
 2. Start the user app:
    ```bash
    npm start
+
+📚 ตัวอย่างหมวดหมู่ของ style ที่ใช้บ่อย ๆ:
+🧱 Layout
+Property	ใช้ทำอะไร
+flex	การขยายพื้นที่อัตโนมัติ
+flexDirection	แนวจัดวาง (row, column)
+justifyContent	แนวตั้ง (center, flex-start, flex-end, space-between)
+alignItems	แนวนอน (center, flex-start, flex-end)
+position	ตำแหน่ง (relative, absolute)
+top, left, right, bottom	จัดตำแหน่งเมื่อใช้ position: 'absolute'
+🎨 Appearance
+Property	ใช้ทำอะไร
+backgroundColor	สีพื้นหลัง
+borderRadius	มุมโค้ง
+borderWidth, borderColor	เส้นขอบ
+opacity	ความโปร่งใส (0 - 1)
+elevation	เงา (เฉพาะ Android)
+shadowColor, shadowOffset, shadowOpacity, shadowRadius	เงา (เฉพาะ iOS)
+🔤 Text
+Property	ใช้ทำอะไร
+fontSize	ขนาดตัวอักษร
+fontWeight	ความหนา (normal, bold, 100-900)
+color	สีข้อความ
+textAlign	ชิดซ้าย ขวา กลาง (left, center, right)
+lineHeight	ระยะห่างระหว่างบรรทัด
+📏 Size & Space
+Property	ใช้ทำอะไร
+width, height	ความกว้าง ความสูง
+padding, paddingHorizontal, paddingVertical, paddingTop, paddingBottom, etc.	ระยะห่างด้านใน
+margin, marginHorizontal, marginVertical, etc.
