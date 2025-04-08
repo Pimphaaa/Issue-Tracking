@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 
+
 const TabBar = ({ state, descriptors, navigation }) => {
   const primaryColor = '#0891b2';
   const greyColor = '#737373';
@@ -9,7 +10,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
   // เพิ่มไอคอนสำหรับแต่ละ route.name
   const icons = {
     index: (props) => <FontAwesome name="home" size={26} {...props} />,
-    Activity: (props) => <FontAwesome name="activity" size={26} {...props} />,
+    Activity: (props) => <FontAwesome name="line-chart" size={26} {...props} />,
     Profile: (props) => <FontAwesome name="user" size={26} {...props} />,
   };
 
@@ -68,7 +69,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
 const style = StyleSheet.create({
   tabbar: {
     position: 'absolute',
-    bottom: 25,
+    bottom: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

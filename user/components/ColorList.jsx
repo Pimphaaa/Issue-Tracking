@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image, StyleSheet } from 'react-native'
+import { View, Text, ScrollView, StyleSheet } from 'react-native'
 import React from 'react'
 
 const ColorList = ({color}) => {

@@ -6,7 +6,7 @@ import TabBar from '../components/TabBar'
 const _layout = () => {
   return (
     <Tabs
-    TabBar={props=> <TabBar {...props} />}
+    tabBar={props => <TabBar {...props} />}
     >
         <Tabs.Screen
             name='index'
