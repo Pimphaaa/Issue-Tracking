@@ -13,7 +13,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
     Profile: (props) => <FontAwesome name="user" size={26} {...props} />,
   };
 
-  // รายชื่อ route ที่ไม่อยากให้แสดงใน TabBar
+  // รายชื่อ route ที่ไม่อยากให้แสดงใน TabBar  
   const hiddenRoutes = ['_sitemap', '+not-found'];
 
   return (
