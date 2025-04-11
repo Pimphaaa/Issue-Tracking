@@ -6,26 +6,29 @@ import TabBar from '../components/TabBar'
 const _layout = () => {
   return (
     <Tabs
-    tabBar={props => <TabBar {...props} />}
+      screenOptions={{
+        headerShown: false, // 👈 ซ่อนทุกหน้า
+      }}
+      tabBar={props => <TabBar {...props} />}
     >
-        <Tabs.Screen
-            name='index'
-            options={{
-                title: "Home"
-            }}
-        />
-        <Tabs.Screen
-            name='Activity'
-            options={{
-                title: "Activity"
-            }}
-        />
-        <Tabs.Screen
-            name='Profile'
-            options={{
-                title: "Profile"
-            }}
-        />
+      <Tabs.Screen
+        name='index'
+        options={{
+          title: "Home"
+        }}
+      />
+      <Tabs.Screen
+        name='Activity'
+        options={{
+          title: "Activity"
+        }}
+      />
+      <Tabs.Screen
+        name='Profile'
+        options={{
+          title: "Profile"
+        }}
+      />
     </Tabs>
   )
 }

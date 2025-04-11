@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
 
+
 const data = [
   {
     id: '1',
@@ -36,8 +37,9 @@ const HomeScreen = () => {
     <View style={styles.container}>
       {/* Header with logo */}
       <View style={styles.header}>
+        
         <Image source={require('../assets/images/logo1.png')} style={styles.logo} />
-        <Text style={styles.headerText}>มูลนิธิแม่ฟ้าหลวง ในพระบรมราชูปถัมภ์</Text>
+        
       </View>
 
       {/* User name */}
@@ -65,18 +67,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingHorizontal: 16,
+    maxHeight: '100%',
+    paddingBottom: 20,
+    
   },
   header: {
     backgroundColor: '#1E1E2E',
-    paddingTop: 40,
-    paddingBottom: 20,
+    minHeight: 180,
+    paddingTop: 30,
+    paddingBottom: 50,
     alignItems: 'center',
+    width: '100%',
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    
+    
   },
   logo: {
-    width: '100%',
+    width: 350, 
     height: 50,
-    marginBottom: 8,
+    marginBottom: 10,
+    resizeMode: 'contain', 
+    marginTop: 0,
   },
   headerText: {
     color: '#fff',
@@ -87,6 +99,7 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     fontSize: 16,
     fontWeight: '600',
+    
   },
   mainCard: {
     backgroundColor: '#fff',
