@@ -11,10 +11,8 @@ export default function RequestIssuePage() {
 
   return (
     <div className="flex flex-col">
-      {/* เพิ่ม Sidebar */}
       <Sidebar role={role} sidebarOpen={sidebarOpen} />
 
-      {/* เพิ่ม DashboardHeader */}
       <DashboardHeader 
         role={role} 
         sidebarOpen={sidebarOpen} 
