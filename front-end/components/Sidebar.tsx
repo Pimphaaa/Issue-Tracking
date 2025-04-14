@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import { Home, ClipboardList, Users, PlusCircle, Settings } from "lucide-react"
+import { Home, ClipboardList, Users, PlusCircle } from "lucide-react"
 import Link from "next/link"
 
 interface SidebarProps {
@@ -19,7 +19,6 @@ export default function Sidebar({ role, sidebarOpen }: SidebarProps) {
     { name: role === "admin" ? "Assign" : "Issues", href: `/dashboard/${role}/issues`, icon: ClipboardList, current: isActive(`/dashboard/${role}/issues`) },
     { name: role === "admin" ? "Staff" : "Team", href: `/dashboard/${role}/${role === "admin" ? "staff" : "team"}`, icon: Users, current: isActive(`/dashboard/${role}/${role === "admin" ? "staff" : "team"}`) },
     { name: "Request", href: "/request-issue", icon: PlusCircle, current: isActive("/request-issue") },
-    { name: "Settings", href: `/dashboard/${role}/settings`, icon: Settings, current: isActive(`/dashboard/${role}/settings`) },
   ]
 
   return (

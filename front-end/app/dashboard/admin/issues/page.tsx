@@ -138,9 +138,8 @@ export default function IssueAssignment() {
   return (
     <DashboardLayout role="admin">
       <div className="space-y-6">
-        <div className="flex flex-col gap-2">
+        <div className="py-10 flex flex-col gap-2">
           <h1 className="text-3xl font-bold tracking-tight">Issue Assignment 👨🏻</h1>
-          <p className="text-muted-foreground">Assign open issues to staff members</p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
