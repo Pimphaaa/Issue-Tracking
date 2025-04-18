@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
-
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const data = [
   {
@@ -20,6 +20,8 @@ const data = [
 ];
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
+
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       <View>
@@ -35,20 +37,19 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header with logo */}
+      
       <View style={styles.header}>
-        
         <Image source={require('../assets/images/logo1.png')} style={styles.logo} />
-        
+        <Text style={styles.username}>ชาติชาย นายทหาร</Text> 
       </View>
-
-      {/* User name */}
-      <Text style={styles.username}>ชาติชาย นายทหาร</Text>
-
-      {/* Main Title */}
-      <View style={styles.mainCard}>
+      
+      
+      
+      <TouchableOpacity style={styles.mainCard} onPress={() => navigation.navigate('NextScreen')}>
         <Text style={styles.mainTitle}>แจ้ง</Text>
-      </View>
+      </TouchableOpacity>
+
+      
 
       {/* List */}
       <FlatList
@@ -68,7 +69,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingTop: 60,
-    
   },
   header: {
     backgroundColor: '#1E1E2E',
@@ -79,43 +79,49 @@ const styles = StyleSheet.create({
     width: '100%',
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
-    
-    
   },
   logo: {
-    width: 350, 
+    width: 350,
     height: 50,
     marginBottom: 10,
-    resizeMode: 'contain', 
-    marginTop: 0,
-  },
-  headerText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  username: {
-    marginVertical: 16,
-    fontSize: 16,
-    fontWeight: '600',
-    
+    resizeMode: 'contain',
   },
   mainCard: {
     backgroundColor: '#fff',
-    padding: 20,
+    paddingVertical: 20,
+    width: '90%',              // ขยายเกือบเต็มความกว้าง
+    height:  100,                // ความสูงที่ชัดเจน
     borderRadius: 16,
-    elevation: 4,
-    marginBottom: 16,
+    borderWidth: 2,
+    borderColor: '#1E1E2E',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    marginTop: -40,            // ทับลงมาจาก header
+    alignSelf: 'center',       // ให้ปุ่มอยู่ตรงกลางหน้าจอ
+    zIndex: 10,
+    elevation: 5,
   },
   mainTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: '#1F1F1F',
+  },
+  username: {
+    color: '#fff',
+  fontSize: 16,
+  fontWeight: '600',
+  marginTop: 10,
+  marginLeft: 20, // เพิ่มระยะจากขอบ
+  textAlign: 'left',
+  alignSelf: 'flex-start',
   },
   card: {
     backgroundColor: '#fff',
     padding: 16,
     marginBottom: 12,
+    marginHorizontal: 16,
     borderRadius: 12,
     borderLeftWidth: 6,
     borderLeftColor: '#1E1E2E',
