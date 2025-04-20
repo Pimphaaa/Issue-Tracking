@@ -23,7 +23,7 @@ export default function Sidebar({ role, sidebarOpen }: SidebarProps) {
 
   return (
     <aside
-      className={`fixed left-0 top-16 h-[calc(100vh-4rem)] bg-[#1E1F29] transition-all duration-300 ${
+      className={`fixed left-0 top-16 h-[calc(100vh-4rem)] bg-[#FFFFFF] transition-all duration-300 ${
         sidebarOpen ? "w-64" : "w-16"
       }`}
     >
@@ -52,8 +52,8 @@ function SidebarItem({
   return (
     <Link
       href={href}
-      className={`flex items-center gap-4 p-2 text-white rounded-md transition-all duration-200 ${
-        active ? "bg-gray-700" : "hover:bg-gray-800"
+      className={`flex items-center gap-4 p-2 text-black rounded-md transition-all duration-200 ${
+        active ? "bg-[#E5EFFF]" : "hover:bg-[#E5EFFF]"
       }`}
     >
       <div

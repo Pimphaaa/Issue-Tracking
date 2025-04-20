@@ -10,10 +10,10 @@ interface DashboardLayoutProps {
 }
 
 export default function DashboardLayout({ children, role }: DashboardLayoutProps) {
-  const [sidebarOpen, setSidebarOpen] = useState(true) // เปิด sidebar เริ่มต้น
+  const [sidebarOpen, setSidebarOpen] = useState(true)
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col" style={{ backgroundColor: "#F3F7FA" }}>
       <DashboardHeader sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} role={role} />
 
       <div className="flex flex-1">
