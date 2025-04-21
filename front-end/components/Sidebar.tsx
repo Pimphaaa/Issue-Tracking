@@ -16,7 +16,7 @@ export default function Sidebar({ role, sidebarOpen }: SidebarProps) {
 
   const navigation = [
     { name: "Dashboard", href: `/dashboard/${role}`, icon: Home, current: isActive(`/dashboard/${role}`) },
-    { name: role === "admin" ? "Assign" : "Issues", href: `/dashboard/${role}/issues`, icon: ClipboardList, current: isActive(`/dashboard/${role}/issues`) },
+    { name: "Issues Ticket", href: "/issues", icon: ClipboardList, current: isActive("/issues") },
     { name: "Request", href: "/request-issue", icon: PlusCircle, current: isActive("/request-issue") },
   ]
 

@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { JSXElementConstructor, ReactElement, ReactNode, ReactPortal, useState } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
@@ -20,9 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Filter, Search, Eye } from "lucide-react"
-import IssueDetailModal from "@/components/issue-detail-modal"
+import { Filter, Search, Edit, Tag, User, Calendar } from "lucide-react"
 import DashboardLayout from "@/components/dashboard-layout"
 
 // Mock data
@@ -62,37 +61,12 @@ const issues = [
   },
 ]
 
-const staffMembers = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    department: "Technical Support",
-    activeIssues: 3,
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: 2,
-    name: "Michael Chen",
-    department: "Customer Service",
-    activeIssues: 5,
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: 3,
-    name: "Emily Rodriguez",
-    department: "IT",
-    activeIssues: 2,
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-]
-
-export default function IssueAssignment() {
+export default function IssueListPage() {
   const [idSearch, setIdSearch] = useState("")
   const [titleSearch, setTitleSearch] = useState("")
   const [assigneeSearch, setAssigneeSearch] = useState("")
   const [priorityFilter, setPriorityFilter] = useState("all")
-  const [selectedIssue, setSelectedIssue] = useState<any>(null)
-  const [isIssueModalOpen, setIsIssueModalOpen] = useState(false)
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false)
 
   const filteredIssues = issues.filter((issue) => {
     const matchesId = issue.id.toLowerCase().includes(idSearch.toLowerCase())
@@ -104,17 +78,7 @@ export default function IssueAssignment() {
     return matchesId && matchesTitle && matchesAssignee && matchesPriority
   })
 
-  const handleViewIssue = (issue: any) => {
-    setSelectedIssue(issue)
-    setIsIssueModalOpen(true)
-  }
-
-  const handleAssignIssue = (issueId: string, staffId: string) => {
-    console.log(`Assigning issue ${issueId} to staff ${staffId}`)
-    setIsIssueModalOpen(false)
-  }
-
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string | number | Date) => {
     const date = new Date(dateString)
     return date.toLocaleDateString("en-US", {
       year: "numeric",
@@ -123,7 +87,7 @@ export default function IssueAssignment() {
     })
   }
 
-  const getPriorityBadge = (priority: string) => {
+  const getPriorityBadge = (priority: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined) => {
     switch (priority) {
       case "high":
         return <Badge variant="destructive">High</Badge>
@@ -136,7 +100,7 @@ export default function IssueAssignment() {
     }
   }
 
-  const getStatusBadge = (status: string) => {
+  const getStatusBadge = (status: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined) => {
     switch (status) {
       case "open":
         return (
@@ -157,41 +121,81 @@ export default function IssueAssignment() {
         </div>
 
         <Card>
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle>Open Issues</CardTitle>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => setIsSearchExpanded(!isSearchExpanded)}
+              className="flex items-center gap-2"
+            >
+              <Search className="h-4 w-4" />
+              {isSearchExpanded ? "Hide Search" : "Advanced Search"}
+            </Button>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-              <Input
-                placeholder="Search by ID"
-                value={idSearch}
-                onChange={(e) => setIdSearch(e.target.value)}
-              />
-              <Input
-                placeholder="Search by Title"
-                value={titleSearch}
-                onChange={(e) => setTitleSearch(e.target.value)}
-              />
-              <Input
-                placeholder="Search by Assignee"
-                value={assigneeSearch}
-                onChange={(e) => setAssigneeSearch(e.target.value)}
-              />
-              <div className="flex items-center gap-2">
-                <Filter className="h-4 w-4 text-muted-foreground" />
-                <Select value={priorityFilter} onValueChange={setPriorityFilter}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Filter by priority" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="low">Low</SelectItem>
-                  </SelectContent>
-                </Select>
+            {isSearchExpanded && (
+              <div className="bg-slate-50 p-4 rounded-lg mb-6 border border-slate-200 shadow-sm">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="space-y-2">
+                    <div className="text-sm font-medium flex items-center gap-1 text-slate-500">
+                      <Tag className="h-4 w-4" />
+                      <span>Issue ID</span>
+                    </div>
+                    <Input
+                      placeholder="Search by ID"
+                      value={idSearch}
+                      onChange={(e) => setIdSearch(e.target.value)}
+                      className="bg-white"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="text-sm font-medium flex items-center gap-1 text-slate-500">
+                      <Search className="h-4 w-4" />
+                      <span>Issue Title</span>
+                    </div>
+                    <Input
+                      placeholder="Search by Title"
+                      value={titleSearch}
+                      onChange={(e) => setTitleSearch(e.target.value)}
+                      className="bg-white"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="text-sm font-medium flex items-center gap-1 text-slate-500">
+                      <User className="h-4 w-4" />
+                      <span>Assignee</span>
+                    </div>
+                    <Input
+                      placeholder="Search by Assignee"
+                      value={assigneeSearch}
+                      onChange={(e) => setAssigneeSearch(e.target.value)}
+                      className="bg-white"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="text-sm font-medium flex items-center gap-1 text-slate-500">
+                      <Filter className="h-4 w-4" />
+                      <span>Priority</span>
+                    </div>
+                    <Select value={priorityFilter} onValueChange={setPriorityFilter}>
+                      <SelectTrigger className="w-full bg-white">
+                        <SelectValue placeholder="Filter by priority" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        <SelectItem value="high">High</SelectItem>
+                        <SelectItem value="medium">Medium</SelectItem>
+                        <SelectItem value="low">Low</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
 
             <Table>
               <TableHeader>
@@ -222,12 +226,10 @@ export default function IssueAssignment() {
                       <TableCell>{getPriorityBadge(issue.priority)}</TableCell>
                       <TableCell>{getStatusBadge(issue.status)}</TableCell>
                       <TableCell>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleViewIssue(issue)}
-                        >
-                          <Eye className="w-4 h-4" />
+                        <Button asChild variant="ghost" size="icon">
+                          <Link href={`/dashboard/admin/issues/${issue.id}`}>
+                            <Edit className="w-4 h-4" />
+                          </Link>
                         </Button>
                       </TableCell>
                     </TableRow>
@@ -237,17 +239,6 @@ export default function IssueAssignment() {
             </Table>
           </CardContent>
         </Card>
-
-        {selectedIssue && (
-          <IssueDetailModal
-            issue={selectedIssue}
-            isOpen={isIssueModalOpen}
-            onClose={() => setIsIssueModalOpen(false)}
-            role="admin"
-            staffMembers={staffMembers}
-            onAssign={handleAssignIssue}
-          />
-        )}
       </div>
     </DashboardLayout>
   )
