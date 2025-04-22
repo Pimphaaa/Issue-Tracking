@@ -21,9 +21,8 @@ export default function DashboardHeader({ role, sidebarOpen, setSidebarOpen }: D
   const router = useRouter()
 
 const handleLogout = () => {
-  // ลบ token / session ถ้ามี
   console.log("Logging out...")
-  router.replace("/") // ไปหน้าแรกแบบไม่มีปุ่มย้อนกลับ
+  router.replace("/")
 }
 
 
