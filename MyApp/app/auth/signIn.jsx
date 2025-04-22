@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
-import Colors from '../../constant/Colors';
+import Colors from '../constant/Colors';
 
 export default function SignIn() {
   const router = useRouter();
@@ -12,7 +12,7 @@ export default function SignIn() {
   const handleSignIn = () => {
     // TODO: เชื่อมต่อ API เพื่อล็อกอิน
     console.log('Login:', { email, password });
-    router.replace('/'); // เปลี่ยนไปหน้าแรกหลังล็อกอิน
+    router.replace('/tabs/home'); //เชื่อมไปหน้าโฮม
   };
 
   return (
@@ -40,7 +40,7 @@ export default function SignIn() {
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => router.push('/auth/signUp')}>
+      <TouchableOpacity onPress={() => router.push('')}>
         <Text style={styles.link}>Don't have an account? Sign Up</Text>
       </TouchableOpacity>
     </View>

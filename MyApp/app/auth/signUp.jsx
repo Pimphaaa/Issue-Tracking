@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
-import Colors from '../../constant/Colors';
+import Colors from '../constant/Colors';
 
 export default function SignUp() {
   const router = useRouter();

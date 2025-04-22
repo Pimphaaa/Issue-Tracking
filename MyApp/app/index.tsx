@@ -1,5 +1,5 @@
 import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
-import Colors from '../constant/Colors';
+import Colors from './constant/Colors';
 import { useRouter } from "expo-router";
 
 export default function Index() {
@@ -19,7 +19,7 @@ export default function Index() {
           <Text style={styles.buttonText}>SignUp</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>already have account</Text>
+          <Text style={styles.buttonText}onPress={()=>router.push("/auth/signIn")} >already have account</Text>
         </TouchableOpacity>
       </View>
     </View>
