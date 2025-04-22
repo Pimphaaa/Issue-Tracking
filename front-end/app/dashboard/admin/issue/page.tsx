@@ -34,7 +34,7 @@ export default function AdminIssuePage() {
     <DashboardLayout role="admin">
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between py-6">
-          <h1 className="text-2xl font-bold tracking-tight">My Request</h1>
+          <h1 className="text-2xl font-bold tracking-tight">My Request 🌷</h1>
           <Button onClick={handleNewRequest}>คำร้องใหม่</Button>
         </div>
 

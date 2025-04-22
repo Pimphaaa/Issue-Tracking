@@ -21,10 +21,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Filter, Search, Edit, Tag, User, Calendar } from "lucide-react"
+import { Filter, Search, Edit, Tag, User } from "lucide-react"
 import DashboardLayout from "@/components/dashboard-layout"
 
-// Mock data
 const issues = [
   {
     id: "ISS-001",
@@ -87,7 +86,7 @@ export default function IssueListPage() {
     })
   }
 
-  const getPriorityBadge = (priority: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined) => {
+  const getPriorityBadge = (priority: string) => {
     switch (priority) {
       case "high":
         return <Badge variant="destructive">High</Badge>
@@ -100,7 +99,7 @@ export default function IssueListPage() {
     }
   }
 
-  const getStatusBadge = (status: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined) => {
+  const getStatusBadge = (status: string) => {
     switch (status) {
       case "open":
         return (
@@ -115,9 +114,9 @@ export default function IssueListPage() {
 
   return (
     <DashboardLayout role="admin">
-      <div className="space-y-6">
-        <div className="py-10 flex flex-col gap-2">
-          <h1 className="text-3xl font-bold tracking-tight">Issue Assignment 👨🏻‍💻</h1>
+      <div className="space-y-6 pl-4 mt-4">
+        <div className="flex items-center justify-between py-6">
+          <h1 className="text-2xl font-bold tracking-tight">Issue Assignment 👨🏻‍💻</h1>
         </div>
 
         <Card>

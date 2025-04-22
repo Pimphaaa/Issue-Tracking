@@ -83,8 +83,8 @@ export default function AdminDashboard() {
   return (
     <DashboardLayout role="admin">
       <div className="flex flex-col gap-6">
-        <div className="py-10 flex flex-col gap-2">
-          <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard 👩🏻</h1>
+        <div className="flex items-center justify-between py-6">
+          <h1 className="text-2xl font-bold tracking-tight">Admin Dashboard 👩🏻</h1>
         </div>
 
         {/* Performance Analytics */}
