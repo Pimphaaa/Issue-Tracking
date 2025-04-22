@@ -11,7 +11,7 @@ export default function StaffSidebar({ sidebarOpen }: { sidebarOpen: boolean }) 
 
   const navigation = [
     { name: "Dashboard", href: "/dashboard/staff", icon: Home, current: isActive("/dashboard/staff") },
-    { name: "Issues Ticket", href: "/issues", icon: ClipboardList, current: isActive("/issues") },
+    { name: "Issues Ticket", href: "/dashboard/staff/request-issue", icon: ClipboardList, current: isActive("/dashboard/staff/request-issue") },
   ]
 
   return (
