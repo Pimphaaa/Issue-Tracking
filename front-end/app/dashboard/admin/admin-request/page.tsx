@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import DashboardLayout from "@/components/dashboard-layout"
 
 const mockAdminIssues = [
   {
@@ -31,7 +30,6 @@ export default function AdminIssuePage() {
   }
 
   return (
-    <DashboardLayout role="admin">
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between py-6">
           <h1 className="text-2xl font-bold tracking-tight">My Request 🌷</h1>
@@ -57,6 +55,5 @@ export default function AdminIssuePage() {
           )}
         </div>
       </div>
-    </DashboardLayout>
   )
 }

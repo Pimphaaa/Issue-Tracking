@@ -11,8 +11,8 @@ export default function AdminSidebar({ sidebarOpen }: { sidebarOpen: boolean }) 
 
   const navigation = [
     { name: "Dashboard", href: "/dashboard/admin", icon: Home, current: isActive("/dashboard/admin") },
-    { name: "Issues Ticket", href: "/issues", icon: ClipboardList, current: isActive("/issues") },
-    { name: "My Requests", href: "/dashboard/admin/issue", icon: PlusCircle, current: isActive("/dashboard/admin/issue") },
+    { name: "Issues Ticket", href: "/dashboard/admin/issues", icon: ClipboardList, current: isActive("/dashboard/admin/issues") },
+    { name: "My Requests", href: "/dashboard/admin/admin-request", icon: PlusCircle, current: isActive("/dashboard/admin/admin-request") },
   ]
 
   return (

@@ -22,7 +22,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Filter, Search, Edit, Tag, User } from "lucide-react"
-import DashboardLayout from "@/components/dashboard-layout"
 
 const issues = [
   {
@@ -113,8 +112,7 @@ export default function IssueListPage() {
   }
 
   return (
-    <DashboardLayout role="admin">
-      <div className="space-y-6 pl-4 mt-4">
+      <div>
         <div className="flex items-center justify-between py-6">
           <h1 className="text-2xl font-bold tracking-tight">Issue Assignment 👨🏻‍💻</h1>
         </div>
@@ -239,6 +237,5 @@ export default function IssueListPage() {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
   )
 }
