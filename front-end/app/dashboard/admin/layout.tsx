@@ -13,11 +13,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       <div className="flex flex-1">
         <AdminSidebar sidebarOpen={sidebarOpen} />
-        <main
-          className={`flex-1 overflow-y-auto p-4 transition-all duration-300 md:p-8 ${
-            sidebarOpen ? "ml-64" : "ml-16"
-          }`}
-        >
+        <main className="flex-1 p-4">
           {children}
         </main>
       </div>

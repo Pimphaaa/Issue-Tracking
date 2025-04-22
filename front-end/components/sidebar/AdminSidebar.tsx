@@ -12,7 +12,7 @@ export default function AdminSidebar({ sidebarOpen }: { sidebarOpen: boolean }) 
   const navigation = [
     { name: "Dashboard", href: "/dashboard/admin", icon: Home, current: isActive("/dashboard/admin") },
     { name: "Issues Ticket", href: "/issues", icon: ClipboardList, current: isActive("/issues") },
-    { name: "My Requests", href: "/my-requests", icon: PlusCircle, current: isActive("/my-requests") },
+    { name: "My Requests", href: "/dashboard/admin/issue", icon: PlusCircle, current: isActive("/dashboard/admin/issue") },
   ]
 
   return (
