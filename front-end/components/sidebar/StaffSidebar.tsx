@@ -1,23 +1,17 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import { Home, ClipboardList, Users, PlusCircle } from "lucide-react"
+import { Home, ClipboardList } from "lucide-react"
 import Link from "next/link"
 
-interface SidebarProps {
-  role: "admin" | "staff"
-  sidebarOpen: boolean
-}
-
-export default function Sidebar({ role, sidebarOpen }: SidebarProps) {
+export default function StaffSidebar({ sidebarOpen }: { sidebarOpen: boolean }) {
   const pathname = usePathname()
 
   const isActive = (href: string) => pathname === href
 
   const navigation = [
-    { name: "Dashboard", href: `/dashboard/${role}`, icon: Home, current: isActive(`/dashboard/${role}`) },
+    { name: "Dashboard", href: "/dashboard/staff", icon: Home, current: isActive("/dashboard/staff") },
     { name: "Issues Ticket", href: "/issues", icon: ClipboardList, current: isActive("/issues") },
-    { name: "Request", href: "/request-issue", icon: PlusCircle, current: isActive("/request-issue") },
   ]
 
   return (
@@ -28,7 +22,7 @@ export default function Sidebar({ role, sidebarOpen }: SidebarProps) {
     >
       <nav className="flex flex-col gap-4 p-4">
         {navigation.map((item) => (
-          <SidebarItem key={item.href} href={item.href} icon={item.icon} label={item.name} sidebarOpen={sidebarOpen} active={item.current} />
+          <SidebarItem key={item.href} href={item.href} icon={item.icon} label={item.name} current={item.current} sidebarOpen={sidebarOpen} />
         ))}
       </nav>
     </aside>
@@ -40,24 +34,22 @@ function SidebarItem({
   icon: Icon,
   label,
   sidebarOpen,
-  active,
+  current,
 }: {
   href: string
   icon: React.ElementType
   label: string
   sidebarOpen: boolean
-  active: boolean
+  current: boolean
 }) {
   return (
     <Link
       href={href}
       className={`flex items-center gap-4 p-2 text-black rounded-md transition-all duration-200 ${
-        active ? "bg-[#E5EFFF]" : "hover:bg-[#E5EFFF]"
+        current ? "bg-[#E5EFFF]" : "hover:bg-[#E5EFFF]"
       }`}
     >
-      <div
-        className={`flex h-12 w-12 items-center justify-start -ml-1 transition-all duration-200`} // Adjust padding to move icon left by 2px
-      >
+      <div className="flex h-12 w-12 items-center justify-start -ml-1">
         <Icon className="h-6 w-6" />
       </div>
       {sidebarOpen && <span className="text-left">{label}</span>}
