@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import DashboardLayout from "@/components/dashboard-layout"
 
 const mockIssues = [
   {
@@ -38,7 +37,6 @@ export default function IssueDetailPage({ params }: { params: { id: string } }) 
   if (!issue) return notFound()
 
   return (
-    <DashboardLayout role="admin">
       <div className="max-w-3xl mx-auto py-10">
         <Card>
           <CardHeader>
@@ -58,6 +56,5 @@ export default function IssueDetailPage({ params }: { params: { id: string } }) 
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
   )
 }
