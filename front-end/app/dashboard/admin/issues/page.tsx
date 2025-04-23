@@ -1,6 +1,6 @@
 "use client"
 
-import { JSXElementConstructor, ReactElement, ReactNode, ReactPortal, useState } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -21,9 +21,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Filter, Search, Edit, Tag, User } from "lucide-react"
+import { ChevronDown, Edit, X } from "lucide-react"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
-const issues = [
+interface Issue {
+  id: string;
+  title: string;
+  status: string;
+  priority: string;
+  requester: string;
+  created: string;
+  dueDate: string;
+  assignedTo: string;
+  description: string;
+}
+
+interface FilterState {
+  id: string;
+  title: string;
+  assignedTo: string;
+  priority: string;
+  status: string;
+}
+
+const issues: Issue[] = [
   {
     id: "ISS-001",
     title: "App crashes on startup",
@@ -60,23 +81,40 @@ const issues = [
 ]
 
 export default function IssueListPage() {
-  const [idSearch, setIdSearch] = useState("")
-  const [titleSearch, setTitleSearch] = useState("")
-  const [assigneeSearch, setAssigneeSearch] = useState("")
-  const [priorityFilter, setPriorityFilter] = useState("all")
-  const [isSearchExpanded, setIsSearchExpanded] = useState(false)
-
-  const filteredIssues = issues.filter((issue) => {
-    const matchesId = issue.id.toLowerCase().includes(idSearch.toLowerCase())
-    const matchesTitle = issue.title.toLowerCase().includes(titleSearch.toLowerCase())
-    const matchesAssignee =
-      issue.assignedTo?.toLowerCase().includes(assigneeSearch.toLowerCase()) ?? false
-    const matchesPriority = priorityFilter === "all" || issue.priority === priorityFilter
-
-    return matchesId && matchesTitle && matchesAssignee && matchesPriority
+  const [filters, setFilters] = useState<FilterState>({
+    id: "",
+    title: "",
+    assignedTo: "",
+    priority: "all",
+    status: "all"
   })
 
-  const formatDate = (dateString: string | number | Date) => {
+  const updateFilter = (key: keyof FilterState, value: string) => {
+    setFilters(prev => ({
+      ...prev,
+      [key]: value
+    }))
+  }
+
+  const clearFilter = (key: keyof FilterState) => {
+    setFilters(prev => ({
+      ...prev,
+      [key]: key === "priority" || key === "status" ? "all" : ""
+    }))
+  }
+
+  const filteredIssues = issues.filter((issue) => {
+    const matchesId = issue.id.toLowerCase().includes(filters.id.toLowerCase())
+    const matchesTitle = issue.title.toLowerCase().includes(filters.title.toLowerCase())
+    const matchesAssignee = filters.assignedTo === "" || 
+      (issue.assignedTo?.toLowerCase().includes(filters.assignedTo.toLowerCase()) ?? false)
+    const matchesPriority = filters.priority === "all" || issue.priority === filters.priority
+    const matchesStatus = filters.status === "all" || issue.status === filters.status
+
+    return matchesId && matchesTitle && matchesAssignee && matchesPriority && matchesStatus
+  })
+
+  const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     return date.toLocaleDateString("en-US", {
       year: "numeric",
@@ -111,131 +149,244 @@ export default function IssueListPage() {
     }
   }
 
+  const hasActiveFilters = Object.values(filters).some(value => 
+    value !== "" && value !== "all"
+  )
+
   return (
-      <div>
-        <div className="flex items-center justify-between py-6">
-          <h1 className="text-2xl font-bold tracking-tight">Issue Assignment 👨🏻‍💻</h1>
-        </div>
+    <div>
+      <div className="flex items-center justify-between py-6">
+        <h1 className="text-2xl font-bold tracking-tight">Issue Assignment 👨🏻‍💻</h1>
+        {hasActiveFilters && (
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => setFilters({
+              id: "",
+              title: "",
+              assignedTo: "",
+              priority: "all",
+              status: "all"
+            })}
+            className="flex items-center gap-1 text-sm"
+          >
+            <X className="h-3 w-3" />
+            Clear all filters
+          </Button>
+        )}
+      </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle>Open Issues</CardTitle>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={() => setIsSearchExpanded(!isSearchExpanded)}
-              className="flex items-center gap-2"
-            >
-              <Search className="h-4 w-4" />
-              {isSearchExpanded ? "Hide Search" : "Advanced Search"}
-            </Button>
-          </CardHeader>
-          <CardContent>
-            {isSearchExpanded && (
-              <div className="bg-slate-50 p-4 rounded-lg mb-6 border border-slate-200 shadow-sm">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="space-y-2">
-                    <div className="text-sm font-medium flex items-center gap-1 text-slate-500">
-                      <Tag className="h-4 w-4" />
-                      <span>Issue ID</span>
-                    </div>
-                    <Input
-                      placeholder="Search by ID"
-                      value={idSearch}
-                      onChange={(e) => setIdSearch(e.target.value)}
-                      className="bg-white"
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <div className="text-sm font-medium flex items-center gap-1 text-slate-500">
-                      <Search className="h-4 w-4" />
-                      <span>Issue Title</span>
-                    </div>
-                    <Input
-                      placeholder="Search by Title"
-                      value={titleSearch}
-                      onChange={(e) => setTitleSearch(e.target.value)}
-                      className="bg-white"
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <div className="text-sm font-medium flex items-center gap-1 text-slate-500">
-                      <User className="h-4 w-4" />
-                      <span>Assignee</span>
-                    </div>
-                    <Input
-                      placeholder="Search by Assignee"
-                      value={assigneeSearch}
-                      onChange={(e) => setAssigneeSearch(e.target.value)}
-                      className="bg-white"
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <div className="text-sm font-medium flex items-center gap-1 text-slate-500">
-                      <Filter className="h-4 w-4" />
-                      <span>Priority</span>
-                    </div>
-                    <Select value={priorityFilter} onValueChange={setPriorityFilter}>
-                      <SelectTrigger className="w-full bg-white">
-                        <SelectValue placeholder="Filter by priority" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        <SelectItem value="high">High</SelectItem>
-                        <SelectItem value="medium">Medium</SelectItem>
-                        <SelectItem value="low">Low</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </div>
-            )}
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle>Open Issues</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="ghost" size="sm" className="h-8 flex gap-1 -ml-3 font-medium">
+                        เลขที่ใบงาน
+                        <ChevronDown className="h-3 w-3" />
+                        {filters.id && <Badge variant="secondary" className="ml-1">{filters.id}</Badge>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-60 p-3">
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium">Filter by ID</p>
+                        <div className="flex gap-2">
+                          <Input
+                            placeholder="Search ID"
+                            value={filters.id}
+                            onChange={(e) => updateFilter("id", e.target.value)}
+                            className="h-8"
+                          />
+                          {filters.id && (
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              className="h-8 w-8" 
+                              onClick={() => clearFilter("id")}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </TableHead>
 
-            <Table>
-              <TableHeader>
+                <TableHead>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="ghost" size="sm" className="h-8 flex gap-1 -ml-3 font-medium">
+                        เรื่อง
+                        <ChevronDown className="h-3 w-3" />
+                        {filters.title && <Badge variant="secondary" className="ml-1">{filters.title}</Badge>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-60 p-3">
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium">Filter by Title</p>
+                        <div className="flex gap-2">
+                          <Input
+                            placeholder="Search title"
+                            value={filters.title}
+                            onChange={(e) => updateFilter("title", e.target.value)}
+                            className="h-8"
+                          />
+                          {filters.title && (
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              className="h-8 w-8" 
+                              onClick={() => clearFilter("title")}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </TableHead>
+
+                <TableHead>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="ghost" size="sm" className="h-8 flex gap-1 -ml-3 font-medium">
+                        ผู้รับผิดชอบ
+                        <ChevronDown className="h-3 w-3" />
+                        {filters.assignedTo && <Badge variant="secondary" className="ml-1">{filters.assignedTo}</Badge>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-60 p-3">
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium">Filter by Assignee</p>
+                        <div className="flex gap-2">
+                          <Input
+                            placeholder="Search assignee"
+                            value={filters.assignedTo}
+                            onChange={(e) => updateFilter("assignedTo", e.target.value)}
+                            className="h-8"
+                          />
+                          {filters.assignedTo && (
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              className="h-8 w-8" 
+                              onClick={() => clearFilter("assignedTo")}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </TableHead>
+
+                <TableHead>Due date</TableHead>
+
+                <TableHead>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="ghost" size="sm" className="h-8 flex gap-1 -ml-3 font-medium">
+                        Priority
+                        <ChevronDown className="h-3 w-3" />
+                        {filters.priority !== "all" && (
+                          <Badge variant="secondary" className="ml-1">
+                            {filters.priority}
+                          </Badge>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-36 p-3">
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium">Filter by Priority</p>
+                        <Select value={filters.priority} onValueChange={(value) => updateFilter("priority", value)}>
+                          <SelectTrigger className="h-8">
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">All</SelectItem>
+                            <SelectItem value="high">High</SelectItem>
+                            <SelectItem value="medium">Medium</SelectItem>
+                            <SelectItem value="low">Low</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </TableHead>
+
+                <TableHead>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="ghost" size="sm" className="h-8 flex gap-1 -ml-3 font-medium">
+                        Status
+                        <ChevronDown className="h-3 w-3" />
+                        {filters.status !== "all" && (
+                          <Badge variant="secondary" className="ml-1">
+                            {filters.status}
+                          </Badge>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-36 p-3">
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium">Filter by Status</p>
+                        <Select value={filters.status} onValueChange={(value) => updateFilter("status", value)}>
+                          <SelectTrigger className="h-8">
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">All</SelectItem>
+                            <SelectItem value="open">Open</SelectItem>
+                            {/* Add more status options as needed */}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </TableHead>
+
+                <TableHead>Action</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredIssues.length === 0 ? (
                 <TableRow>
-                  <TableHead>เลขที่ใบงาน</TableHead>
-                  <TableHead>เรื่อง</TableHead>
-                  <TableHead>ผู้รับผิดชอบ</TableHead>
-                  <TableHead>Due date</TableHead>
-                  <TableHead>Priority</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Action</TableHead>
+                  <TableCell colSpan={8} className="text-center h-24">
+                    No issues found
+                  </TableCell>
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredIssues.length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={7} className="text-center h-24">
-                      No issues found
+              ) : (
+                filteredIssues.map((issue) => (
+                  <TableRow key={issue.id}>
+                    <TableCell>{issue.id}</TableCell>
+                    <TableCell>{issue.title}</TableCell>
+                    <TableCell>{issue.assignedTo ?? "Unassigned"}</TableCell>
+                    <TableCell>{formatDate(issue.dueDate)}</TableCell>
+                    <TableCell>{getPriorityBadge(issue.priority)}</TableCell>
+                    <TableCell>{getStatusBadge(issue.status)}</TableCell>
+                    <TableCell>
+                      <Button asChild variant="ghost" size="icon">
+                        <Link href={`/dashboard/admin/issues/${issue.id}`}>
+                          <Edit className="w-4 w-4" />
+                        </Link>
+                      </Button>
                     </TableCell>
                   </TableRow>
-                ) : (
-                  filteredIssues.map((issue) => (
-                    <TableRow key={issue.id}>
-                      <TableCell>{issue.id}</TableCell>
-                      <TableCell>{issue.title}</TableCell>
-                      <TableCell>{issue.assignedTo ?? "Unassigned"}</TableCell>
-                      <TableCell>{formatDate(issue.dueDate)}</TableCell>
-                      <TableCell>{getPriorityBadge(issue.priority)}</TableCell>
-                      <TableCell>{getStatusBadge(issue.status)}</TableCell>
-                      <TableCell>
-                        <Button asChild variant="ghost" size="icon">
-                          <Link href={`/dashboard/admin/issues/${issue.id}`}>
-                            <Edit className="w-4 h-4" />
-                          </Link>
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-      </div>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    </div>
   )
 }
