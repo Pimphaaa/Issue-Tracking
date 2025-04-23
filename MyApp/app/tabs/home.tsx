@@ -7,7 +7,7 @@ export default function Home() {
     <View style={{ marginTop: 55 }}>
       <Image source={require('../images/logo1.png')}
         style={{position: 'absolute',top: 15,right:30,width: 350,height: 50,zIndex: 20,}}/>
-      <View style={{width: '100%',height: 200,borderBottomLeftRadius: 40,borderBottomRightRadius: 40,backgroundColor: 'skyblue',}}/>
+      <View style={{width: '100%',height: 200,borderBottomLeftRadius: 40,borderBottomRightRadius: 40,backgroundColor: 'blue',}}/>
       <Text>นาย หมี่เกี๊ยว ต้มยำ</Text>
     </View>
   )
