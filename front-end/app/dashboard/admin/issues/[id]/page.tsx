@@ -1,5 +1,6 @@
 "use client"
 
+import { use } from "react"
 import { notFound } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -44,8 +45,10 @@ function getStatusStep(status: string) {
   }
 }
 
-export default function IssueDetailPage({ params }: { params: { id: string } }) {
-  const issue = mockIssues.find((issue) => issue.id === params.id)
+export default function IssueDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params)
+
+  const issue = mockIssues.find((issue) => issue.id === id)
 
   if (!issue) return notFound()
 
@@ -88,7 +91,7 @@ export default function IssueDetailPage({ params }: { params: { id: string } }) 
       <Card className="shadow-md">
         <CardContent className="pt-6 pb-4">
           <h2 className="text-lg font-semibold mb-4">สถานะการดำเนินการ</h2>
-          <Progress value={getStatusStep(issue.status)} className="h-3 mb-6" />
+          <Progress value={getStatusStep(issue.status)} className="h-3 mb-6 bg-gray-200 [&>div]:bg-[#82D01E]" />
           <div className="flex justify-between text-sm">
             <div className="flex flex-col items-center">
               <div className={`w-6 h-6 rounded-full flex items-center justify-center ${issue.status === 'open' || issue.status === 'approved' || issue.status === 'assigned' || issue.status === 'resolved' ? 'bg-[#16325B] text-white' : 'bg-gray-200'}`}>1</div>
