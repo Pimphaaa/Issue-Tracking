@@ -1,6 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { Plus } from "lucide-react" 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -23,18 +25,24 @@ const mockAdminIssues = [
 
 export default function AdminIssuePage() {
   const [issues, setIssues] = useState(mockAdminIssues)
+  const router = useRouter()
 
   const handleNewRequest = () => {
-    // สำหรับตอนนี้แค่ console log หรือเปลี่ยนไปหน้าอื่นในอนาคต
-    console.log("Go to New Request Form")
+    router.push("/new-request")
   }
 
   return (
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between py-6">
           <h1 className="text-2xl font-bold tracking-tight">My Request 🌷</h1>
-          <Button onClick={handleNewRequest}>คำร้องใหม่</Button>
-        </div>
+          <Button
+            onClick={handleNewRequest}
+            className="bg-[#0070FF] hover:bg-[#005ce0] text-white flex items-center gap-2 cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            คำร้องใหม่
+            </Button>
+      </div>
 
         <div className="grid gap-4">
           {issues.length === 0 ? (
