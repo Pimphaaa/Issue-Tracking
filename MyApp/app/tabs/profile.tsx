@@ -1,30 +1,49 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { Feather } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 export default function Profile() {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    console.log('Logged out');
+    router.replace('/'); // กลับไปหน้า login
+  };
+
   return (
     <View style={styles.container}>
-      {/* รูปโปรไฟล์ */}
-      <View style={styles.profilePictureContainer}>
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.logoutIcon} onPress={handleLogout}>
+          <Feather name="log-out" size={24} color="#fff" />
+        </TouchableOpacity>
+
         <Image
-          source={require('../images/profile.jpeg')} // ใส่ path ของรูปโปรไฟล์
+          source={require('../images/profile.jpeg')}
           style={styles.profilePicture}
         />
+        <Text style={styles.name}>นาย หมี่เกี๊ยว ต้มยำ</Text>
+        <Text style={styles.email}>Tumyum@example.com</Text>
       </View>
 
-      {/* ข้อมูลผู้ใช้ */}
-      <Text style={styles.name}>John Doe</Text>
-      <Text style={styles.email}>john.doe@example.com</Text>
+      {/* กล่องข้อมูล */}
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>ข้อมูลส่วนตัว</Text>
 
-      {/* ปุ่มการตั้งค่า */}
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Settings</Text>
-      </TouchableOpacity>
-
-      {/* ปุ่มออกจากระบบ */}
-      <TouchableOpacity style={[styles.button, styles.logoutButton]}>
-        <Text style={styles.buttonText}>Logout</Text>
-      </TouchableOpacity>
+        <View style={styles.infoRow}>
+          <Text style={styles.label}>เบอร์โทรศัพท์:</Text>
+          <Text style={styles.value}>081-234-5678</Text>
+        </View>
+        <View style={styles.infoRow}>
+          <Text style={styles.label}>วันเกิด:</Text>
+          <Text style={styles.value}>1 มกราคม 1990</Text>
+        </View>
+        <View style={styles.infoRow}>
+          <Text style={styles.label}>ที่อยู่:</Text>
+          <Text style={styles.value}>123/45 ดอยตุง เชียงราย</Text>
+        </View>
+      </View>
     </View>
   );
 }
@@ -32,48 +51,74 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    padding: 20,
+    backgroundColor: '#e0f7fa',
   },
-  profilePictureContainer: {
-    borderWidth: 5,
-    borderColor: '#ffffff',
-    borderRadius: 100,
-    overflow: 'hidden',
-    marginBottom: 20,
+  header: {
+    height: 300,
+    backgroundColor: 'skyblue',
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 50,
+    paddingBottom: 30,
+    position: 'relative',
+  },
+  logoutIcon: {
+    position: 'absolute',
+    top: 50,
+    right: 24,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    padding: 8,
+    borderRadius: 50,
   },
   profilePicture: {
-    width: 150,
-    height: 150,
-    borderRadius: 75, // ให้เป็นวงกลม
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    borderWidth: 3,
+    borderColor: '#fff',
+    marginBottom: 12,
   },
   name: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 5,
+    color: '#fff',
   },
   email: {
-    fontSize: 16,
-    color: '#777',
-    marginBottom: 30,
+    fontSize: 14,
+    color: '#eee',
+    marginTop: 4,
   },
-  button: {
-    width: '100%',
-    padding: 15,
-    backgroundColor: '#007bff',
-    alignItems: 'center',
-    borderRadius: 10,
+  card: {
+    backgroundColor: '#fff',
+    marginHorizontal: 20,
+    marginTop: -40,
+    borderRadius: 20,
+    padding: 20,
+    elevation: 4, // สำหรับ Android
+    shadowColor: '#000', // สำหรับ iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    color: '#333',
+  },
+  infoRow: {
+    flexDirection: 'row',
     marginBottom: 10,
   },
-  logoutButton: {
-    backgroundColor: '#dc3545',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
+  label: {
     fontWeight: 'bold',
+    width: 110,
+    color: '#444',
+  },
+  value: {
+    flex: 1,
+    color: '#555',
   },
 });

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform, StatusBar } from 'react-native'
 import { useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -17,12 +17,13 @@ export default function Details() {
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       {/* Header */}
-      <View style={{marginTop:55}}/>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <Ionicons name="chevron-back" size={24} color="#fff" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>รายละเอียด</Text>
+      <View style={styles.headerContainer}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+            <Ionicons name="chevron-back" size={24} color="#fff" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>รายละเอียด</Text>
+        </View>
       </View>
 
       {/* Status Timeline */}
@@ -49,9 +50,12 @@ export default function Details() {
 }
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    backgroundColor: 'skyblue',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 44,
+  },
   header: {
     height: 60,
-    backgroundColor: '#242532',
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 10,
@@ -70,6 +74,7 @@ const styles = StyleSheet.create({
   stepContainer: {
     flexDirection: 'row',
     marginBottom: 30,
+    minHeight: 90,
   },
   timeline: {
     alignItems: 'center',
@@ -90,6 +95,7 @@ const styles = StyleSheet.create({
   info: {
     paddingLeft: 10,
     flex: 1,
+    justifyContent: 'center',
   },
   time: {
     fontSize: 12,
@@ -98,6 +104,7 @@ const styles = StyleSheet.create({
   timeValue: {
     fontSize: 12,
     marginBottom: 4,
+    color: '#333',
   },
   statusLabel: {
     fontSize: 16,
@@ -106,5 +113,6 @@ const styles = StyleSheet.create({
   },
   location: {
     fontSize: 14,
+    color: '#555',
   },
 })

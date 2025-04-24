@@ -1,25 +1,27 @@
-import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
-import Colors from './constant/Colors';
+import { Text, View, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
+import Colors from './constant/Colors';
 
 export default function Index() {
+  const router = useRouter();
 
-  const router =useRouter();
   return (
-    <View style={{ flex: 1, backgroundColor: 'skyblue' }}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <View style={styles.topSection}>
         <Image
-          source={require('../assets/images/partial-react-logo.png')}
-          style={styles.image}
+          source={require('./images/doitung-logo.png')}
+          style={styles.logo}
         />
+        
+      </View>
 
-        <Text style={styles.title}>Let's Get Started</Text>
-
-        <TouchableOpacity style={styles.button} onPress={()=>router.push("/auth/signUp")}>
-          <Text style={styles.buttonText}>SignUp</Text>
+      <View style={styles.content}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push("/auth/signUp")}>
+          <Text style={styles.buttonText}>สมัครสมาชิก</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}onPress={()=>router.push("/auth/signIn")} >already have account</Text>
+
+        <TouchableOpacity style={styles.buttonOutline} onPress={() => router.push("/auth/signIn")}>
+          <Text style={styles.buttonOutlineText}>เข้าสู่ระบบ</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -29,33 +31,53 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 20,
-    borderRadius: 20,
-    padding: 20,
+    backgroundColor: '#fff',
+    paddingHorizontal: 24,
+    paddingTop: 60,
+  },
+  topSection: {
     alignItems: 'center',
-    justifyContent: 'center',
   },
-  image: {
-    width: '100%',
-    height: 200,
+  logo: {
+    width: 300,
+    height: 250,
     resizeMode: 'contain',
+    marginBottom: 12,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#555',
+    textAlign: 'center',
     marginBottom: 20,
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-    textAlign: 'center',
+  content: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    width: '100%',
+    paddingBottom: 48,
+    gap: 16,
   },
   button: {
-    backgroundColor: Colors.PINK,
-    paddingVertical: 12,
-    width: 300, 
-    borderRadius: 15,
-    marginTop: 20,
+    backgroundColor: '#2d2d2d',
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: 'center',
   },
   buttonText: {
-    color: 'white',
-    fontSize: 16,
-    textAlign: 'center',
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  buttonOutline: {
+    borderWidth: 1.5,
+    borderColor: '#2d2d2d',
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  buttonOutlineText: {
+    color: '#2d2d2d',
+    fontSize: 18,
+    fontWeight: '600',
   },
 });
