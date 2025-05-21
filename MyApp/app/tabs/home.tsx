@@ -67,7 +67,7 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#00bcd4',
+    backgroundColor: 'skyblue',
     paddingHorizontal: 20,
     paddingTop: 60,
     paddingBottom: 30,
