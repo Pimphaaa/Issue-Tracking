@@ -2,7 +2,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'rea
 import React from 'react'
 import { useRouter } from 'expo-router';
 
-export default function Home() {
+export default function index() {
   const router = useRouter();
 
   const data = [

@@ -8,9 +8,9 @@ const TabBar = ({ state, descriptors, navigation }) => {
 
   // เพิ่มไอคอนสำหรับแต่ละ route.name
   const icons = {
-    index: (props) => <FontAwesome name="home" size={26} {...props} />,
-    Activity: (props) => <FontAwesome name="line-chart" size={26} {...props} />,
-    Profile: (props) => <FontAwesome name="user" size={26} {...props} />,
+    home: (props) => <FontAwesome name="home" size={26} {...props} />,
+    activity: (props) => <FontAwesome name="line-chart" size={26} {...props} />,
+    profile: (props) => <FontAwesome name="user" size={26} {...props} />,
   };
 
   // รายชื่อ route ที่ไม่อยากให้แสดงใน TabBar  
