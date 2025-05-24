@@ -30,10 +30,14 @@ export default function Request() {
   const [fileUri, setFileUri] = useState('');
 
   const pickFile = async () => {
-    const result = await DocumentPicker.getDocumentAsync({ type: '*/*', copyToCacheDirectory: true });
-    if (result.type === 'success') {
-      setFileName(result.name);
-      setFileUri(result.uri);
+    try {
+      const result = await DocumentPicker.getDocumentAsync({ type: '*/*', copyToCacheDirectory: true });
+      if (result.type === 'success') {
+        setFileName(result.name);
+        setFileUri(result.uri);
+      }
+    } catch (error) {
+      Alert.alert('เกิดข้อผิดพลาด', 'ไม่สามารถเลือกไฟล์ได้');
     }
   };
 
@@ -48,7 +52,7 @@ export default function Request() {
       'คุณต้องการยกเลิกการกรอกข้อมูลหรือไม่?',
       [
         { text: 'ยกเลิก', style: 'cancel' },
-        { text: 'ยืนยัน', onPress: () => router.push('/someOtherPage') },
+        { text: 'ยืนยัน', onPress: () => router.back() },
       ],
       { cancelable: false }
     );
@@ -60,7 +64,10 @@ export default function Request() {
       'คุณต้องการบันทึกข้อมูลหรือไม่?',
       [
         { text: 'ยกเลิก', style: 'cancel' },
-        { text: 'ยืนยัน', onPress: () => router.push('/someOtherPage') },
+        { text: 'ยืนยัน', onPress: () => {
+          // ตัวอย่าง ส่งข้อมูล หรือ ไปหน้าอื่น
+          router.push('/'); 
+        }},
       ],
       { cancelable: false }
     );
@@ -71,7 +78,7 @@ export default function Request() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#fff' }}>
+    <View style={styles.container}>
       {/* Header */}
       <View style={styles.headerContainer}>
         <View style={styles.header}>
@@ -82,7 +89,7 @@ export default function Request() {
         </View>
       </View>
 
-      <ScrollView contentContainerStyle={{ padding: 16 }}>
+      <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
         {/* หน่วยงาน + ประเภท (แนวตั้ง) */}
         <View style={{ gap: 10, zIndex: 3000 }}>
           <View>
@@ -95,7 +102,7 @@ export default function Request() {
               setValue={setUnitValue}
               setItems={setUnitItems}
               style={styles.noBorderPicker}
-              dropDownContainerStyle={{ borderColor: '#ddd' }}
+              dropDownContainerStyle={styles.dropDownContainer}
               zIndex={3000}
               zIndexInverse={1000}
             />
@@ -110,7 +117,7 @@ export default function Request() {
               setValue={setTypeValue}
               setItems={setTypeItems}
               style={styles.noBorderPicker}
-              dropDownContainerStyle={{ borderColor: '#ddd' }}
+              dropDownContainerStyle={styles.dropDownContainer}
               zIndex={2000}
               zIndexInverse={2000}
             />
@@ -142,6 +149,8 @@ export default function Request() {
           style={styles.input}
           value={summary}
           onChangeText={setSummary}
+          placeholder="กรอกสรุปความต้องการ"
+          placeholderTextColor="#aaa"
         />
 
         <Text style={styles.label}>รายละเอียด :</Text>
@@ -150,12 +159,15 @@ export default function Request() {
           multiline
           value={detail}
           onChangeText={setDetail}
+          placeholder="กรอกรายละเอียดเพิ่มเติม"
+          placeholderTextColor="#aaa"
         />
 
         <Text style={styles.label}>ไฟล์แนบ</Text>
         <TouchableOpacity
           onPress={pickFile}
           style={styles.fileButton}
+          activeOpacity={0.7}
         >
           <Text style={styles.fileText}>{fileName || 'กรุณาเลือกไฟล์แนบ (ไม่เกิน 10 MB)'}</Text>
         </TouchableOpacity>
@@ -163,7 +175,7 @@ export default function Request() {
         {fileUri && fileName.match(/\.(jpg|jpeg|png|gif)$/i) && (
           <Image
             source={{ uri: fileUri }}
-            style={{ width: '100%', height: 200, borderRadius: 8, marginBottom: 20 }}
+            style={styles.fileImage}
             resizeMode="cover"
           />
         )}
@@ -191,6 +203,7 @@ export default function Request() {
 }
 
 const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#fff' },
   headerContainer: {
     backgroundColor: '#0288d1',
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 44,
@@ -201,17 +214,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 10,
   },
-  backButton: {
-    padding: 15,
-  },
-  headerTitle: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+  backButton: { padding: 15 },
+  headerTitle: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+
+  scrollContent: { padding: 16, paddingBottom: 30 },
+
   label: {
     fontSize: 16,
-    marginBottom: 10,
+    marginBottom: 6,
     color: '#4CAF50',
     fontWeight: 'bold',
   },
@@ -221,6 +231,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 5,
   },
+  dropDownContainer: {
+    borderColor: '#ddd',
+    borderRadius: 8,
+  },
+
   datePickerButton: {
     borderWidth: 1,
     borderColor: '#0288d1',
@@ -239,6 +254,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 8,
     padding: 10,
+    marginBottom: 15,
   },
   calendar: {
     borderRadius: 8,
@@ -263,6 +279,12 @@ const styles = StyleSheet.create({
   },
   fileText: {
     color: '#0288d1',
+  },
+  fileImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 8,
+    marginBottom: 20,
   },
   buttonContainer: {
     flexDirection: 'row',
